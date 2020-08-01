@@ -1,0 +1,66 @@
+-----session name: trial_1_20200727-1448.txt 
+
+CONFIGS 
+{
+  "session": {
+    "sess_name" : "trial_1"
+  },
+  "data": {
+    "data_csv_name": "acne_folds/1_train.csv",
+    "validation_ratio": "0.2",
+    "test_csv_name": "acne_folds/1_test.csv",
+    "data_path": "",
+    "label_dict": ["mild","intermediate","severe","very severe"],
+    "batch_size": "16"
+  },
+
+  "optimizer": {
+    "name": "Adam",
+    "lr": 0.002,
+    "loss": "CrossEntropyLoss"
+  },
+  "train": {
+    "extractor": "resnet50",
+    "early-stop": 10,
+    "num_epoch": 50,
+    "metrics": ["accuracy_score","f1_score"],
+    "lr_scheduler_factor": "min",
+    "patience" : 5,
+    "reduce_lr_factor" : 0.5,
+    "save_as_name": "model1.pth"
+  }
+}-----
+ Transformationfrom torchvision import transforms
+
+# define augmentation methods for training and validation/test set
+
+train_transform = transforms.Compose(
+    [
+        transforms.Resize((320, 320)),
+        transforms.RandomHorizontalFlip(),
+        transforms.RandomPerspective(),
+        transforms.RandomVerticalFlip(),
+        transforms.ToTensor(),
+        transforms.RandomErasing()
+    ]
+)
+
+val_transform = transforms.Compose(
+    [transforms.Resize((320, 320)), transforms.ToTensor(),]
+)
+LR = 0.002Epoch 1 / 50 
+ Training loss: 1.6078121149411766 - Other training metrics: {'accuracy_score': 0.3951271186440678, 'f1_score': 0.2173019880876973} 
+ Validation loss : 1.3320353373949108 - Other validation metrics:{'accuracy_score': 0.3948497854077253, 'f1_score': 0.22611107126634633}
+Validation accuracy= 0.3948497854077253===> Save best epochLR = 0.002Epoch 2 / 50 
+ Training loss: 1.0842137982768396 - Other training metrics: {'accuracy_score': 0.4051906779661017, 'f1_score': 0.25494809672027585} 
+ Validation loss : 1.896857796820448 - Other validation metrics:{'accuracy_score': 0.4291845493562232, 'f1_score': 0.35243398716515045}
+Validation accuracy= 0.4291845493562232===> Save best epochLR = 0.002Epoch 3 / 50 
+ Training loss: 1.0632757088189484 - Other training metrics: {'accuracy_score': 0.4209039548022599, 'f1_score': 0.28352508975883317} 
+ Validation loss : 23.70180814358298 - Other validation metrics:{'accuracy_score': 0.38197424892703863, 'f1_score': 0.18035318994284202}
+Validation accuracy= 0.38197424892703863===> No savingLR = 0.002Epoch 4 / 50 
+ Training loss: 1.0181605877414825 - Other training metrics: {'accuracy_score': 0.4412076271186441, 'f1_score': 0.30909603724069995} 
+ Validation loss : 0.8952910644302041 - Other validation metrics:{'accuracy_score': 0.592274678111588, 'f1_score': 0.4864325111855181}
+Validation accuracy= 0.592274678111588===> Save best epochLR = 0.002Epoch 5 / 50 
+ Training loss: 0.9698959568495391 - Other training metrics: {'accuracy_score': 0.46546610169491526, 'f1_score': 0.33300352598171107} 
+ Validation loss : 1.2658725224851026 - Other validation metrics:{'accuracy_score': 0.4592274678111588, 'f1_score': 0.27764797507788164}
+Validation accuracy= 0.4592274678111588===> No saving

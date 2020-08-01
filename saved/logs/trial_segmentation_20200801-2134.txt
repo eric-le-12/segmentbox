@@ -1,0 +1,50 @@
+-----session name: trial_segmentation_20200801-2134.txt 
+
+CONFIGS 
+{
+  "session": {
+    "sess_name" : "trial_segmentation"
+  },
+  "data": {
+    "data_csv_name": "dataset/train.csv",
+    "validation_ratio": "0.2",
+    "test_csv_name": "dataset/test.csv",
+    "data_path": "dataset/segmentation/",
+    "label_dict": ["negative","positive"],
+    "batch_size": "4"
+  },
+
+  "optimizer": {
+    "name": "Adam",
+    "lr": 0.002,
+    "loss": "BCEDiceLoss"
+  },
+  "train": {
+    "extractor": "resnet50",
+    "early-stop": 10,
+    "num_epoch": 50,
+    "metrics": ["iou_numpy"],
+    "lr_scheduler_factor": "min",
+    "patience" : 5,
+    "reduce_lr_factor" : 0.5,
+    "save_as_name": "model1.pth"
+  }
+}-----
+ Transformationfrom torchvision import transforms
+
+# define augmentation methods for training and validation/test set
+
+train_transform = transforms.Compose(
+    [
+        transforms.Resize((320, 320)),
+        transforms.RandomHorizontalFlip(),
+        transforms.RandomPerspective(),
+        transforms.RandomVerticalFlip(),
+        transforms.ToTensor(),
+        transforms.RandomErasing()
+    ]
+)
+
+val_transform = transforms.Compose(
+    [transforms.Resize((320, 320)), transforms.ToTensor(),]
+)

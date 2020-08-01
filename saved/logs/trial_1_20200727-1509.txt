@@ -1,0 +1,210 @@
+-----session name: trial_1_20200727-1509.txt 
+
+CONFIGS 
+{
+  "session": {
+    "sess_name" : "trial_1"
+  },
+  "data": {
+    "data_csv_name": "acne_folds/1_train.csv",
+    "validation_ratio": "0.2",
+    "test_csv_name": "acne_folds/1_test.csv",
+    "data_path": "",
+    "label_dict": ["mild","intermediate","severe","very severe"],
+    "batch_size": "16"
+  },
+
+  "optimizer": {
+    "name": "Adam",
+    "lr": 0.002,
+    "loss": "CrossEntropyLoss"
+  },
+  "train": {
+    "extractor": "resnet50",
+    "early-stop": 10,
+    "num_epoch": 50,
+    "metrics": ["accuracy_score","f1_score"],
+    "lr_scheduler_factor": "min",
+    "patience" : 5,
+    "reduce_lr_factor" : 0.5,
+    "save_as_name": "model1.pth"
+  }
+}-----
+ Transformationfrom torchvision import transforms
+
+# define augmentation methods for training and validation/test set
+
+train_transform = transforms.Compose(
+    [
+        transforms.Resize((320, 320)),
+        transforms.RandomHorizontalFlip(),
+        transforms.RandomPerspective(),
+        transforms.RandomVerticalFlip(),
+        transforms.ToTensor(),
+        transforms.RandomErasing()
+    ]
+)
+
+val_transform = transforms.Compose(
+    [transforms.Resize((320, 320)), transforms.ToTensor(),]
+)
+LR = 0.002Epoch 1 / 50 
+ Training loss: 1.5803620200003348 - Other training metrics: {'accuracy_score': 0.4216101694915254, 'f1_score': 0.23562642691270813} 
+ Validation loss : 1.6038362979888916 - Other validation metrics:{'accuracy_score': 0.37339055793991416, 'f1_score': 0.21704430058390456}
+Validation accuracy= 0.37339055793991416===> Save best epochLR = 0.002Epoch 2 / 50 
+ Training loss: 1.1310456639976911 - Other training metrics: {'accuracy_score': 0.4258474576271186, 'f1_score': 0.2515115436563149} 
+ Validation loss : 0.947110178644565 - Other validation metrics:{'accuracy_score': 0.4248927038626609, 'f1_score': 0.28366483334123554}
+Validation accuracy= 0.4248927038626609===> Save best epochLR = 0.002Epoch 3 / 50 
+ Training loss: 1.062304179130062 - Other training metrics: {'accuracy_score': 0.4339689265536723, 'f1_score': 0.2775959647343939} 
+ Validation loss : 4.4244293982378915 - Other validation metrics:{'accuracy_score': 0.351931330472103, 'f1_score': 0.13268608414239483}
+Validation accuracy= 0.351931330472103===> No savingLR = 0.002Epoch 4 / 50 
+ Training loss: 1.0208166845383182 - Other training metrics: {'accuracy_score': 0.4533898305084746, 'f1_score': 0.3076956098809111} 
+ Validation loss : 3.105674942931392 - Other validation metrics:{'accuracy_score': 0.41630901287553645, 'f1_score': 0.14696969696969697}
+Validation accuracy= 0.41630901287553645===> No savingLR = 0.002Epoch 5 / 50 
+ Training loss: 1.0207638458539081 - Other training metrics: {'accuracy_score': 0.4588983050847458, 'f1_score': 0.31674526553834964} 
+ Validation loss : 1.6153371400587548 - Other validation metrics:{'accuracy_score': 0.33047210300429186, 'f1_score': 0.2416086921462896}
+Validation accuracy= 0.33047210300429186===> No savingLR = 0.002Epoch 6 / 50 
+ Training loss: 0.9754876695653444 - Other training metrics: {'accuracy_score': 0.46875, 'f1_score': 0.32675162063066565} 
+ Validation loss : 1.2125681454531625 - Other validation metrics:{'accuracy_score': 0.44635193133047213, 'f1_score': 0.3272272234089445}
+Validation accuracy= 0.44635193133047213===> Save best epochLR = 0.002Epoch 7 / 50 
+ Training loss: 1.0701052650328606 - Other training metrics: {'accuracy_score': 0.4703389830508475, 'f1_score': 0.33067293557581906} 
+ Validation loss : 1.5650606585162903 - Other validation metrics:{'accuracy_score': 0.33047210300429186, 'f1_score': 0.24767822446336046}
+Validation accuracy= 0.33047210300429186===> No savingLR = 0.001Epoch 8 / 50 
+ Training loss: 1.0843048159794142 - Other training metrics: {'accuracy_score': 0.4653072033898305, 'f1_score': 0.32736489225814014} 
+ Validation loss : 2.1929224939305385 - Other validation metrics:{'accuracy_score': 0.3776824034334764, 'f1_score': 0.21232036613272312}
+Validation accuracy= 0.3776824034334764===> No savingLR = 0.001Epoch 9 / 50 
+ Training loss: 1.0341089525530416 - Other training metrics: {'accuracy_score': 0.4665725047080979, 'f1_score': 0.32967708099124987} 
+ Validation loss : 1.793389099350303 - Other validation metrics:{'accuracy_score': 0.3562231759656652, 'f1_score': 0.1367832924771577}
+Validation accuracy= 0.3562231759656652===> No savingLR = 0.001Epoch 10 / 50 
+ Training loss: 0.9756896138191223 - Other training metrics: {'accuracy_score': 0.47415254237288135, 'f1_score': 0.33989971145273434} 
+ Validation loss : 1.3746465746425252 - Other validation metrics:{'accuracy_score': 0.38626609442060084, 'f1_score': 0.2259572120792593}
+Validation accuracy= 0.38626609442060084===> No savingLR = 0.001Epoch 11 / 50 
+ Training loss: 0.8996504978467059 - Other training metrics: {'accuracy_score': 0.4849768875192604, 'f1_score': 0.35207567608226076} 
+ Validation loss : 0.7674560291061074 - Other validation metrics:{'accuracy_score': 0.6952789699570815, 'f1_score': 0.6256798583144014}
+Validation accuracy= 0.6952789699570815===> Save best epochLR = 0.001Epoch 12 / 50 
+ Training loss: 0.8699963869587067 - Other training metrics: {'accuracy_score': 0.4956744350282486, 'f1_score': 0.3659670578219081} 
+ Validation loss : 0.9423819005233536 - Other validation metrics:{'accuracy_score': 0.592274678111588, 'f1_score': 0.474239658725902}
+Validation accuracy= 0.592274678111588===> No savingLR = 0.001Epoch 13 / 50 
+ Training loss: 0.8328221083969198 - Other training metrics: {'accuracy_score': 0.5071707953063885, 'f1_score': 0.3788174998207989} 
+ Validation loss : 0.748581038268339 - Other validation metrics:{'accuracy_score': 0.6738197424892703, 'f1_score': 0.533023878834037}
+Validation accuracy= 0.6738197424892703===> No savingLR = 0.001Epoch 14 / 50 
+ Training loss: 0.8725474096113636 - Other training metrics: {'accuracy_score': 0.5162681598062954, 'f1_score': 0.3881648628674122} 
+ Validation loss : 0.8750735196432842 - Other validation metrics:{'accuracy_score': 0.630901287553648, 'f1_score': 0.5465615406582423}
+Validation accuracy= 0.630901287553648===> No savingLR = 0.001Epoch 15 / 50 
+ Training loss: 0.863322820971089 - Other training metrics: {'accuracy_score': 0.5207627118644068, 'f1_score': 0.3926154415063109} 
+ Validation loss : 1.0483687353748108 - Other validation metrics:{'accuracy_score': 0.5708154506437768, 'f1_score': 0.4773507314932737}
+Validation accuracy= 0.5708154506437768===> No savingLR = 0.001Epoch 16 / 50 
+ Training loss: 0.8540410149481988 - Other training metrics: {'accuracy_score': 0.528072033898305, 'f1_score': 0.39929405991378214} 
+ Validation loss : 0.804132944524544 - Other validation metrics:{'accuracy_score': 0.6652360515021459, 'f1_score': 0.5286151172092319}
+Validation accuracy= 0.6652360515021459===> No savingLR = 0.001Epoch 17 / 50 
+ Training loss: 0.8072401818408761 - Other training metrics: {'accuracy_score': 0.5359546360917248, 'f1_score': 0.4078900910531583} 
+ Validation loss : 0.7662427039105493 - Other validation metrics:{'accuracy_score': 0.6523605150214592, 'f1_score': 0.5997817300447372}
+Validation accuracy= 0.6523605150214592===> No savingLR = 0.001Epoch 18 / 50 
+ Training loss: 0.8036731248260827 - Other training metrics: {'accuracy_score': 0.5420786252354048, 'f1_score': 0.41406234746313064} 
+ Validation loss : 0.6849606914581658 - Other validation metrics:{'accuracy_score': 0.6866952789699571, 'f1_score': 0.6050154070082532}
+Validation accuracy= 0.6866952789699571===> No savingLR = 0.001Epoch 19 / 50 
+ Training loss: 0.7997778782280542 - Other training metrics: {'accuracy_score': 0.5481155218554862, 'f1_score': 0.42073984561508404} 
+ Validation loss : 0.9032171974877943 - Other validation metrics:{'accuracy_score': 0.5836909871244635, 'f1_score': 0.534011678960309}
+Validation accuracy= 0.5836909871244635===> No savingLR = 0.001Epoch 20 / 50 
+ Training loss: 0.7393725058083893 - Other training metrics: {'accuracy_score': 0.5550317796610169, 'f1_score': 0.4287385357314903} 
+ Validation loss : 0.7286720562390503 - Other validation metrics:{'accuracy_score': 0.6824034334763949, 'f1_score': 0.5642375168690957}
+Validation accuracy= 0.6824034334763949===> No savingLR = 0.001Epoch 21 / 50 
+ Training loss: 0.776658526543648 - Other training metrics: {'accuracy_score': 0.560633575464084, 'f1_score': 0.43449955633895176} 
+ Validation loss : 0.7238829299615688 - Other validation metrics:{'accuracy_score': 0.6652360515021459, 'f1_score': 0.5464757494412851}
+Validation accuracy= 0.6652360515021459===> No savingLR = 0.001Epoch 22 / 50 
+ Training loss: 0.7714248013752762 - Other training metrics: {'accuracy_score': 0.5640408320493067, 'f1_score': 0.4385828023273442} 
+ Validation loss : 0.9753158215289464 - Other validation metrics:{'accuracy_score': 0.592274678111588, 'f1_score': 0.4338158063276546}
+Validation accuracy= 0.592274678111588===> No savingLR = 0.001Epoch 23 / 50 
+ Training loss: 0.7673968102342339 - Other training metrics: {'accuracy_score': 0.5677505526897568, 'f1_score': 0.44303724103433456} 
+ Validation loss : 0.7329532460593359 - Other validation metrics:{'accuracy_score': 0.6995708154506438, 'f1_score': 0.6431029257945003}
+Validation accuracy= 0.6995708154506438===> Save best epochLR = 0.0005Epoch 24 / 50 
+ Training loss: 0.736455858907392 - Other training metrics: {'accuracy_score': 0.5714159604519774, 'f1_score': 0.44863529385143613} 
+ Validation loss : 1.0265715644083309 - Other validation metrics:{'accuracy_score': 0.5493562231759657, 'f1_score': 0.5377074314574315}
+Validation accuracy= 0.5493562231759657===> No savingLR = 0.0005Epoch 25 / 50 
+ Training loss: 0.7094345743938159 - Other training metrics: {'accuracy_score': 0.5763559322033899, 'f1_score': 0.4546884011891967} 
+ Validation loss : 0.6837193357074721 - Other validation metrics:{'accuracy_score': 0.6909871244635193, 'f1_score': 0.6415250647797488}
+Validation accuracy= 0.6909871244635193===> No savingLR = 0.0005Epoch 26 / 50 
+ Training loss: 0.6961556057776174 - Other training metrics: {'accuracy_score': 0.5809566492829205, 'f1_score': 0.4605829060345653} 
+ Validation loss : 0.6042709683144042 - Other validation metrics:{'accuracy_score': 0.7296137339055794, 'f1_score': 0.697271819695265}
+Validation accuracy= 0.7296137339055794===> Save best epochLR = 0.0005Epoch 27 / 50 
+ Training loss: 0.7085815750142579 - Other training metrics: {'accuracy_score': 0.5855696798493408, 'f1_score': 0.46580668170199857} 
+ Validation loss : 0.5925215799921061 - Other validation metrics:{'accuracy_score': 0.7381974248927039, 'f1_score': 0.674213795107084}
+Validation accuracy= 0.7381974248927039===> Save best epochLR = 0.0005Epoch 28 / 50 
+ Training loss: 0.6799294443540675 - Other training metrics: {'accuracy_score': 0.5894370460048426, 'f1_score': 0.470462305709251} 
+ Validation loss : 0.6077309291761832 - Other validation metrics:{'accuracy_score': 0.7253218884120172, 'f1_score': 0.6777758713734323}
+Validation accuracy= 0.7253218884120172===> No savingLR = 0.0005Epoch 29 / 50 
+ Training loss: 0.6730423132578532 - Other training metrics: {'accuracy_score': 0.5939509059029807, 'f1_score': 0.47608292161933446} 
+ Validation loss : 0.6873889741979443 - Other validation metrics:{'accuracy_score': 0.6909871244635193, 'f1_score': 0.6551167127910865}
+Validation accuracy= 0.6909871244635193===> No savingLR = 0.0005Epoch 30 / 50 
+ Training loss: 0.6435542803938671 - Other training metrics: {'accuracy_score': 0.5978460451977401, 'f1_score': 0.4808403562351108} 
+ Validation loss : 0.6710025279307058 - Other validation metrics:{'accuracy_score': 0.721030042918455, 'f1_score': 0.6917949804621223}
+Validation accuracy= 0.721030042918455===> No savingLR = 0.0005Epoch 31 / 50 
+ Training loss: 0.6953369158570485 - Other training metrics: {'accuracy_score': 0.6012506834335702, 'f1_score': 0.48431677583233557} 
+ Validation loss : 0.6171725676295071 - Other validation metrics:{'accuracy_score': 0.7424892703862661, 'f1_score': 0.715064187890082}
+Validation accuracy= 0.7424892703862661===> Save best epochLR = 0.0005Epoch 32 / 50 
+ Training loss: 0.6664889568923622 - Other training metrics: {'accuracy_score': 0.6046742584745762, 'f1_score': 0.48910886696484096} 
+ Validation loss : 0.6437505383859888 - Other validation metrics:{'accuracy_score': 0.7081545064377682, 'f1_score': 0.6978522823592156}
+Validation accuracy= 0.7081545064377682===> No savingLR = 0.00025Epoch 33 / 50 
+ Training loss: 0.6260510621532317 - Other training metrics: {'accuracy_score': 0.6093990755007704, 'f1_score': 0.4938339597531442} 
+ Validation loss : 0.6483704174025376 - Other validation metrics:{'accuracy_score': 0.7381974248927039, 'f1_score': 0.6848970738543078}
+Validation accuracy= 0.7381974248927039===> No savingLR = 0.00025Epoch 34 / 50 
+ Training loss: 0.6636750548116622 - Other training metrics: {'accuracy_score': 0.6125997008973081, 'f1_score': 0.4976754937451662} 
+ Validation loss : 0.5622346692842475 - Other validation metrics:{'accuracy_score': 0.7510729613733905, 'f1_score': 0.7123820931025378}
+Validation accuracy= 0.7510729613733905===> Save best epochLR = 0.00025Epoch 35 / 50 
+ Training loss: 0.6231959839021006 - Other training metrics: {'accuracy_score': 0.6167070217917675, 'f1_score': 0.5026273730527757} 
+ Validation loss : 0.5691144231051335 - Other validation metrics:{'accuracy_score': 0.7381974248927039, 'f1_score': 0.6955543299645708}
+Validation accuracy= 0.7381974248927039===> No savingLR = 0.00025Epoch 36 / 50 
+ Training loss: 0.6196814378102621 - Other training metrics: {'accuracy_score': 0.619320856873823, 'f1_score': 0.5056872918209104} 
+ Validation loss : 0.5515241633157362 - Other validation metrics:{'accuracy_score': 0.759656652360515, 'f1_score': 0.7191755383919562}
+Validation accuracy= 0.759656652360515===> Save best epochLR = 0.00025Epoch 37 / 50 
+ Training loss: 0.6296493971219627 - Other training metrics: {'accuracy_score': 0.6215643609711407, 'f1_score': 0.5082839511568019} 
+ Validation loss : 0.559023183302818 - Other validation metrics:{'accuracy_score': 0.721030042918455, 'f1_score': 0.684076317155246}
+Validation accuracy= 0.721030042918455===> No savingLR = 0.00025Epoch 38 / 50 
+ Training loss: 0.5984208699195616 - Other training metrics: {'accuracy_score': 0.6244703389830508, 'f1_score': 0.5123456848708746} 
+ Validation loss : 0.5869240328477687 - Other validation metrics:{'accuracy_score': 0.7339055793991416, 'f1_score': 0.7151724924919801}
+Validation accuracy= 0.7339055793991416===> No savingLR = 0.00025Epoch 39 / 50 
+ Training loss: 0.5779279402507249 - Other training metrics: {'accuracy_score': 0.627526075619296, 'f1_score': 0.5158357947048053} 
+ Validation loss : 0.5491766433347448 - Other validation metrics:{'accuracy_score': 0.7682403433476395, 'f1_score': 0.7231482046509736}
+Validation accuracy= 0.7682403433476395===> Save best epochLR = 0.00025Epoch 40 / 50 
+ Training loss: 0.5949407618532898 - Other training metrics: {'accuracy_score': 0.6306938559322034, 'f1_score': 0.519541588291703} 
+ Validation loss : 0.6289724270161641 - Other validation metrics:{'accuracy_score': 0.7339055793991416, 'f1_score': 0.6816898148148149}
+Validation accuracy= 0.7339055793991416===> No savingLR = 0.00025Epoch 41 / 50 
+ Training loss: 0.58037829847746 - Other training metrics: {'accuracy_score': 0.6337329474989665, 'f1_score': 0.5234803144460403} 
+ Validation loss : 0.6073408477296134 - Other validation metrics:{'accuracy_score': 0.7339055793991416, 'f1_score': 0.7073987271946754}
+Validation accuracy= 0.7339055793991416===> No savingLR = 0.00025Epoch 42 / 50 
+ Training loss: 0.5597415003725278 - Other training metrics: {'accuracy_score': 0.6371065375302664, 'f1_score': 0.5276944783907835} 
+ Validation loss : 0.6045225687293024 - Other validation metrics:{'accuracy_score': 0.7167381974248928, 'f1_score': 0.6713294403469277}
+Validation accuracy= 0.7167381974248928===> No savingLR = 0.00025Epoch 43 / 50 
+ Training loss: 0.5577903465558124 - Other training metrics: {'accuracy_score': 0.6397566022861647, 'f1_score': 0.5306017480071576} 
+ Validation loss : 0.5929546942015063 - Other validation metrics:{'accuracy_score': 0.7296137339055794, 'f1_score': 0.6940323828877573}
+Validation accuracy= 0.7296137339055794===> No savingLR = 0.00025Epoch 44 / 50 
+ Training loss: 0.5754317747649326 - Other training metrics: {'accuracy_score': 0.6425510400616333, 'f1_score': 0.5337058611144684} 
+ Validation loss : 0.5730692043324909 - Other validation metrics:{'accuracy_score': 0.759656652360515, 'f1_score': 0.7253268424705931}
+Validation accuracy= 0.759656652360515===> No savingLR = 0.000125Epoch 45 / 50 
+ Training loss: 0.5170180156666745 - Other training metrics: {'accuracy_score': 0.6460216572504708, 'f1_score': 0.5382446071619911} 
+ Validation loss : 0.582528230969998 - Other validation metrics:{'accuracy_score': 0.7339055793991416, 'f1_score': 0.7072738250847568}
+Validation accuracy= 0.7339055793991416===> No savingLR = 0.000125Epoch 46 / 50 
+ Training loss: 0.5364485450970229 - Other training metrics: {'accuracy_score': 0.6485353721444362, 'f1_score': 0.541643527863164} 
+ Validation loss : 0.5982707347481035 - Other validation metrics:{'accuracy_score': 0.7553648068669528, 'f1_score': 0.7160362868099899}
+Validation accuracy= 0.7553648068669528===> No savingLR = 0.000125Epoch 47 / 50 
+ Training loss: 0.5004498627878005 - Other training metrics: {'accuracy_score': 0.6517985935809593, 'f1_score': 0.5456492519505098} 
+ Validation loss : 0.5939244482138638 - Other validation metrics:{'accuracy_score': 0.7381974248927039, 'f1_score': 0.69744175780212}
+Validation accuracy= 0.7381974248927039===> No savingLR = 0.000125Epoch 48 / 50 
+ Training loss: 0.4899927544337447 - Other training metrics: {'accuracy_score': 0.6545065324858758, 'f1_score': 0.5494130076006892} 
+ Validation loss : 0.5960630416358489 - Other validation metrics:{'accuracy_score': 0.759656652360515, 'f1_score': 0.7289343530920843}
+Validation accuracy= 0.759656652360515===> No savingLR = 0.000125Epoch 49 / 50 
+ Training loss: 0.5219699882691906 - Other training metrics: {'accuracy_score': 0.6571904185402975, 'f1_score': 0.5531503802601355} 
+ Validation loss : 0.5785525323495333 - Other validation metrics:{'accuracy_score': 0.7510729613733905, 'f1_score': 0.7147520690908491}
+Validation accuracy= 0.7510729613733905===> No savingLR = 0.000125Epoch 50 / 50 
+ Training loss: 0.5189704104136396 - Other training metrics: {'accuracy_score': 0.6597669491525424, 'f1_score': 0.5566423610150846} 
+ Validation loss : 0.5742889842250316 - Other validation metrics:{'accuracy_score': 0.7553648068669528, 'f1_score': 0.7204729188140002}
+Validation accuracy= 0.7553648068669528===> No saving              precision    recall  f1-score   support
+
+        mild     0.7500    0.8100    0.7788       100
+intermediate     0.7153    0.7656    0.7396       128
+      severe     0.6667    0.3158    0.4286        38
+ very severe     0.8065    0.8929    0.8475        28
+
+    accuracy                         0.7347       294
+   macro avg     0.7346    0.6961    0.6986       294
+weighted avg     0.7295    0.7347    0.7230       294
