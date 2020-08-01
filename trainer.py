@@ -30,9 +30,6 @@ def train_one_epoch(
         optimizer.zero_grad()
         # forward-pass: compute-predicted-outputs-by-passing-inputs-to-the-model
         output = model(data)
-        # get the prediction label and target label
-        output = model(data)
-        preds = (output > 0.5).cpu().detach().numpy()
         # preds = torch.argmax(output, axis=1).cpu().detach().numpy()
         labels = target.cpu().numpy().astype(bool)
         # calculate-the-batch-loss
@@ -43,6 +40,7 @@ def train_one_epoch(
         optimizer.step()
         # update-training-loss
         train_loss += loss.item() * data.size(0)
+        preds = (torch.sigmoid(output) > 0.5).cpu().detach().numpy()
         # calculate training metrics
         train_metrics.step(labels, preds)
 
