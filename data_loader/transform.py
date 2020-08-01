@@ -4,7 +4,7 @@ import albumentations as A
 # define augmentation methods for training and validation/test set
 
 train_transform = A.Compose({
-        A.Resize(120, 120),
+        A.Resize(128, 128),
         A.HorizontalFlip(p=0.5),
         A.VerticalFlip(p=0.5),
         A.ShiftScaleRotate(),
@@ -12,5 +12,5 @@ train_transform = A.Compose({
 })
 
 val_transform = A.Compose({
-    A.Resize(120, 120)
+    A.Resize(128, 128)
 })

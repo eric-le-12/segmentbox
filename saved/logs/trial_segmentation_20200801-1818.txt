@@ -1,0 +1,125 @@
+-----session name: trial_segmentation_20200801-1818.txt 
+
+CONFIGS 
+{
+  "session": {
+    "sess_name" : "trial_segmentation"
+  },
+  "data": {
+    "data_csv_name": "dataset/train.csv",
+    "validation_ratio": "0.2",
+    "test_csv_name": "dataset/test.csv",
+    "data_path": "dataset/segmentation/",
+    "label_dict": ["negative","positive"],
+    "batch_size": "8",
+    "size":"128"
+  },
+
+  "optimizer": {
+    "name": "Adam",
+    "lr": 0.002,
+    "loss": "BCEDiceLoss"
+  },
+  "train": {
+    "extractor": "resnet50",
+    "early-stop": 10,
+    "num_epoch": 50,
+    "metrics": ["iou_numpy"],
+    "lr_scheduler_factor": "min",
+    "patience" : 5,
+    "reduce_lr_factor" : 0.5,
+    "save_as_name": "model1.pth"
+  }
+}-----
+ Transformationfrom torchvision import transforms
+import albumentations as A
+
+# define augmentation methods for training and validation/test set
+
+train_transform = A.Compose({
+        A.Resize(128, 128),
+        A.HorizontalFlip(p=0.5),
+        A.VerticalFlip(p=0.5),
+        A.ShiftScaleRotate(),
+        A.ElasticTransform(p=0.2)
+})
+
+val_transform = A.Compose({
+    A.Resize(128, 128)
+})
+
+ LR = 0.002
+ Epoch 1 / 50 
+ Training loss: 0.7704969283306238 - Other training metrics: {'iou_numpy': 0.34409372559546286} 
+ Validation loss : 1.4900538885232173 - Other validation metrics:{'iou_numpy': 0.3491736693562014}
+Validation iou= 0.3491736693562014===> Save best epoch
+ LR = 0.002
+ Epoch 2 / 50 
+ Training loss: 0.336157913460876 - Other training metrics: {'iou_numpy': 0.3398524810764897} 
+ Validation loss : 1.4744900790127842 - Other validation metrics:{'iou_numpy': 0.40474086535133225}
+Validation iou= 0.40474086535133225===> Save best epoch
+ LR = 0.002
+ Epoch 3 / 50 
+ Training loss: 0.20831244055068854 - Other training metrics: {'iou_numpy': 0.33354640676366376} 
+ Validation loss : 1.430960546840321 - Other validation metrics:{'iou_numpy': 0.4891909220596877}
+Validation iou= 0.4891909220596877===> Save best epoch
+ LR = 0.002
+ Epoch 4 / 50 
+ Training loss: 0.18708478952899124 - Other training metrics: {'iou_numpy': 0.3197297882648962} 
+ Validation loss : 1.3985623012889514 - Other validation metrics:{'iou_numpy': 0.5197257521910122}
+Validation iou= 0.5197257521910122===> Save best epoch
+ LR = 0.002
+ Epoch 5 / 50 
+ Training loss: 0.13650655227177072 - Other training metrics: {'iou_numpy': 0.3101497476788675} 
+ Validation loss : 1.3865038878989941 - Other validation metrics:{'iou_numpy': 0.5327358461109035}
+Validation iou= 0.5327358461109035===> Save best epoch
+ LR = 0.002
+ Epoch 6 / 50 
+ Training loss: 0.12411422034104665 - Other training metrics: {'iou_numpy': 0.3089896237859466} 
+ Validation loss : 1.3855681816736858 - Other validation metrics:{'iou_numpy': 0.5296847953966036}
+Validation iou= 0.5296847953966036===> No saving
+ LR = 0.002
+ Epoch 7 / 50 
+ Training loss: 0.1150740333127253 - Other training metrics: {'iou_numpy': 0.3137000561857086} 
+ Validation loss : 1.3868035005800652 - Other validation metrics:{'iou_numpy': 0.5307424001374517}
+Validation iou= 0.5307424001374517===> No saving
+ LR = 0.002
+ Epoch 8 / 50 
+ Training loss: 0.10439697269237402 - Other training metrics: {'iou_numpy': 0.3146217729180907} 
+ Validation loss : 1.3766203793612393 - Other validation metrics:{'iou_numpy': 0.5481390413271915}
+Validation iou= 0.5481390413271915===> Save best epoch
+ LR = 0.002
+ Epoch 9 / 50 
+ Training loss: 0.12691952694546094 - Other training metrics: {'iou_numpy': 0.3087506232726135} 
+ Validation loss : 1.3753506776058313 - Other validation metrics:{'iou_numpy': 0.5461338507033631}
+Validation iou= 0.5461338507033631===> No saving
+ LR = 0.002
+ Epoch 10 / 50 
+ Training loss: 0.11144142394716089 - Other training metrics: {'iou_numpy': 0.3085842602254106} 
+ Validation loss : 1.373454238429214 - Other validation metrics:{'iou_numpy': 0.5485334333210029}
+Validation iou= 0.5485334333210029===> Save best epoch
+ LR = 0.002
+ Epoch 11 / 50 
+ Training loss: 0.12779344889250668 - Other training metrics: {'iou_numpy': 0.30990147224185854} 
+ Validation loss : 1.3729026028604219 - Other validation metrics:{'iou_numpy': 0.5506380778919384}
+Validation iou= 0.5506380778919384===> Save best epoch
+ LR = 0.002
+ Epoch 12 / 50 
+ Training loss: 0.11348394959261923 - Other training metrics: {'iou_numpy': 0.3075098002804692} 
+ Validation loss : 1.3747419263377334 - Other validation metrics:{'iou_numpy': 0.5470848750211965}
+Validation iou= 0.5470848750211965===> No saving
+ LR = 0.002
+ Epoch 13 / 50 
+ Training loss: 0.11838570869330203 - Other training metrics: {'iou_numpy': 0.30538080270970613} 
+ Validation loss : 1.3769660754637285 - Other validation metrics:{'iou_numpy': 0.5423717950300486}
+Validation iou= 0.5423717950300486===> No saving
+ LR = 0.002
+ Epoch 14 / 50 
+ Training loss: 0.1024397864486232 - Other training metrics: {'iou_numpy': 0.3052831366469094} 
+ Validation loss : 1.3745509566682759 - Other validation metrics:{'iou_numpy': 0.5473382837451944}
+Validation iou= 0.5473382837451944===> No saving
+ LR = 0.002
+ Epoch 15 / 50 
+ Training loss: 0.08955774659460242 - Other training metrics: {'iou_numpy': 0.3090044333104452} 
+ Validation loss : 1.3828717000556714 - Other validation metrics:{'iou_numpy': 0.5334875912399715}
+Validation iou= 0.5334875912399715===> No saving

@@ -14,7 +14,7 @@ def train_one_epoch(
     criterion,
     train_metrics,
     val_metrics,
-    size=224
+    size=120
 ):
 
     # training-the-model
