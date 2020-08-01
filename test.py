@@ -7,6 +7,8 @@ import pandas as pd
 import json
 from data_loader import transform
 from model import classification as cls
+import numpy as np
+from utils import custom_metric as cm
 
 # use this file if you want to quickly test your model
 
@@ -14,11 +16,11 @@ with open("./cfgs/tenes.cfg") as f:
     cfg = json.load(f)
 
 
-def test_result(model, test_loader, device):
+def test_result(model, test_loader, device,size=224):
     # testing the model by turning model "Eval" mode
     model.eval()
-    preds = []
-    labels = []
+    all_labels = np.empty((0,1,size,size))
+    all_preds = np.empty((0,1,size,size))
     with torch.no_grad():
         for data, target in test_loader:
             # move-tensors-to-GPU
@@ -27,13 +29,15 @@ def test_result(model, test_loader, device):
             target = target.to(device)
             # forward-pass: compute-predicted-outputs-by-passing-inputs-to-the-model
             output = model(data)
-            prob = nn.Softmax(dim=1)
             # applying Softmax to results
-            probs = prob(output)
-            labels.extend(target.tolist())
-            preds.extend(torch.argmax(probs, axis=1).tolist())
-        return classification_report(
-            labels, preds, target_names=cfg["data"]["label_dict"], digits=4
+            output = torch.sigmoid(output)
+            preds = (output > 0.5).cpu().detach().numpy()
+            labels = target.cpu().numpy().astype(bool)
+            all_labels = np.vstack((all_labels,labels))
+            all_preds = np.vstack((all_preds,preds))
+
+        return cm.iou_numpy(
+            all_labels.astype(bool), all_preds.astype(bool)
         )
 
 

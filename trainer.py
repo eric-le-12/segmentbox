@@ -14,6 +14,7 @@ def train_one_epoch(
     criterion,
     train_metrics,
     val_metrics,
+    size=224
 ):
 
     # training-the-model
@@ -47,24 +48,25 @@ def train_one_epoch(
 
     # validate-the-model
     model.eval()
-    all_labels = np.array([])
-    all_preds = np.array([])
+    all_labels = np.empty((0,1,size,size))
+    all_preds = np.empty((0,1,size,size))
     
     with torch.no_grad():
         for data, target in test_loader:
             data = data.to(device)
             target = target.to(device)
             output = model(data)
+            output = torch.sigmoid(output)
             preds = (output > 0.5).cpu().detach().numpy()
             labels = target.cpu().numpy().astype(bool)
-            all_labels.vstack(labels,axis=0)
-            all_preds.vstack(preds,axis=0)
+            all_labels = np.vstack((all_labels,labels))
+            all_preds = np.vstack((all_preds,preds))
             loss = criterion(output, target)
 
             # update-average-validation-loss
             valid_loss += loss.item() * data.size(0)
 
-    val_metrics.step(all_labels, all_preds)
+    val_metrics.step(all_labels.astype(bool), all_preds.astype(bool))
     train_loss = train_loss / len(train_loader.sampler)
     valid_loss = valid_loss / len(test_loader.sampler)
 

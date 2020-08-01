@@ -1,0 +1,59 @@
+-----session name: trial_segmentation_20200801-1714.txt 
+
+CONFIGS 
+{
+  "session": {
+    "sess_name" : "trial_segmentation"
+  },
+  "data": {
+    "data_csv_name": "dataset/train.csv",
+    "validation_ratio": "0.2",
+    "test_csv_name": "dataset/test.csv",
+    "data_path": "dataset/segmentation/",
+    "label_dict": ["negative","positive"],
+    "batch_size": "4",
+    "size":"224"
+  },
+
+  "optimizer": {
+    "name": "Adam",
+    "lr": 0.002,
+    "loss": "BCEDiceLoss"
+  },
+  "train": {
+    "extractor": "resnet50",
+    "early-stop": 10,
+    "num_epoch": 2,
+    "metrics": ["iou_numpy"],
+    "lr_scheduler_factor": "min",
+    "patience" : 5,
+    "reduce_lr_factor" : 0.5,
+    "save_as_name": "model1.pth"
+  }
+}-----
+ Transformationfrom torchvision import transforms
+import albumentations as A
+
+# define augmentation methods for training and validation/test set
+
+train_transform = A.Compose({
+        A.Resize(224, 224),
+        A.HorizontalFlip(p=0.5),
+        A.Rotate(limit=(-90, 90)),
+        A.VerticalFlip(p=0.5),
+})
+
+val_transform = A.Compose({
+    A.Resize(224, 224)
+})
+
+ LR = 0.002
+ Epoch 1 / 2 
+ Training loss: 1.4487284700075784 - Other training metrics: {'iou_numpy': 0.3964508928571429} 
+ Validation loss : 1.3851700598193752 - Other validation metrics:{'iou_numpy': 0.4060771889400922}
+Validation iou= 0.4060771889400922===> Save best epoch
+ LR = 0.002
+ Epoch 2 / 2 
+ Training loss: 1.3542581756909688 - Other training metrics: {'iou_numpy': 0.45926153273809533} 
+ Validation loss : 1.3653943077210458 - Other validation metrics:{'iou_numpy': 0.3863191244239631}
+Validation iou= 0.3863191244239631===> No saving

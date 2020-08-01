@@ -20,5 +20,7 @@ class SegmentationModel:
 
     def create_model(self):
         # load your pretrained model
-        model = smp.Unet('resnet34', encoder_weights='imagenet',classes=self.class_num, activation='sigmoid')
+        model = smp.Unet('efficientnet-b4', encoder_weights='imagenet',classes=self.class_num, activation=None)
+        for param in model.parameters():
+            param.require_grad = True
         return model

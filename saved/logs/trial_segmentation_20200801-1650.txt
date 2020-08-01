@@ -1,3 +1,6 @@
+-----session name: trial_segmentation_20200801-1650.txt 
+
+CONFIGS 
 {
   "session": {
     "sess_name" : "trial_segmentation"
@@ -8,8 +11,7 @@
     "test_csv_name": "dataset/test.csv",
     "data_path": "dataset/segmentation/",
     "label_dict": ["negative","positive"],
-    "batch_size": "8",
-    "size":"120"
+    "batch_size": "4"
   },
 
   "optimizer": {
@@ -27,4 +29,19 @@
     "reduce_lr_factor" : 0.5,
     "save_as_name": "model1.pth"
   }
-}
+}-----
+ Transformationfrom torchvision import transforms
+import albumentations as A
+
+# define augmentation methods for training and validation/test set
+
+train_transform = A.Compose({
+        A.Resize(224, 224),
+        A.HorizontalFlip(p=0.5),
+        A.Rotate(limit=(-90, 90)),
+        A.VerticalFlip(p=0.5),
+})
+
+val_transform = A.Compose({
+    A.Resize(224, 224)
+})
