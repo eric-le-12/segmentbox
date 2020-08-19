@@ -1,0 +1,9 @@
+pretrainedmodels
+barbar
+torchtoolbox
+efficientnet_pytorch
+torchsummary
+segmentation-models-pytorch
+pywick
+opencv-python
+albumentations
